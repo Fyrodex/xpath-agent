@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 End-to-End Test Automation Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .loading-container {
+            margin: 3rem 0;
+        }
+
+        .loading-spinner {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin: 0 auto 1rem;
+        }
+
+        .loading-spinner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-spinner::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 80px;
+            height: 80px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-bottom: 3px solid #fff;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite reverse;
+        }
+
+        .loading-progress {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .loading-text {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .loading-dots {
+            font-size: 1.5rem;
+            animation: dots 1.5s infinite;
+        }
+
+        .status {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .feature {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .api-links {
+            margin: 2rem 0;
+        }
+
+        .api-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .api-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s infinite;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🚀</div>
+        <h1 class="title">End-to-End Test Automation Platform</h1>
+        <p class="subtitle">AI-powered test automation with agentic architecture</p>
+        
+        <div class="loading-container" id="loading">
+            <div class="loading-spinner">
+                <div class="loading-progress" id="progress">0%</div>
+            </div>
+            <div class="loading-text">Initializing Platform</div>
+            <div class="loading-dots"></div>
+        </div>
+
+        <div class="status hidden" id="status">
+            <h3>✅ Platform Ready</h3>
+            <p>All systems operational</p>
+        </div>
+
+        <div class="features hidden" id="features">
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <h4>XPath Generation</h4>
+                <p>Intelligent locator creation</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h4>HTML Analysis</h4>
+                <p>Comprehensive structure analysis</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📋</div>
+                <h4>Test Scenarios</h4>
+                <p>Automated test case creation</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h4>Test Execution</h4>
+                <p>Built-in test runner</p>
+            </div>
+        </div>
+
+        <div class="tech-stack hidden" id="tech-stack">
+            <span class="tech-badge">FastAPI</span>
+            <span class="tech-badge">LangChain</span>
+            <span class="tech-badge">OpenAI GPT</span>
+            <span class="tech-badge">BeautifulSoup4</span>
+            <span class="tech-badge">Pydantic</span>
+        </div>
+
+        <div class="api-links hidden" id="api-links">
+            <a href="/docs" class="api-link">📚 API Documentation</a>
+            <a href="/redoc" class="api-link">📖 ReDoc</a>
+            <a href="/health" class="api-link">💚 Health Check</a>
+        </div>
+    </div>
+
+    <script>
+        // Progress bar animation
+        let progress = 0;
+        const progressElement = document.getElementById('progress');
+        const progressInterval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress > 100) progress = 100;
+            progressElement.textContent = Math.round(progress) + '%';
+            
+            if (progress >= 100) {
+                clearInterval(progressInterval);
+                setTimeout(() => {
+                    document.getElementById('loading').classList.add('hidden');
+                    document.getElementById('status').classList.remove('hidden');
+                    document.getElementById('status').classList.add('fade-in');
+                }, 500);
+            }
+        }, 100);
+
+        // Staggered animations
+        setTimeout(() => {
+            document.getElementById('features').classList.remove('hidden');
+            document.getElementById('features').classList.add('fade-in');
+        }, 3000);
+
+        setTimeout(() => {
+            document.getElementById('tech-stack').classList.remove('hidden');
+            document.getElementById('tech-stack').classList.add('fade-in');
+        }, 4000);
+
+        setTimeout(() => {
+            document.getElementById('api-links').classList.remove('hidden');
+            document.getElementById('api-links').classList.add('fade-in');
+        }, 5000);
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const features = document.querySelectorAll('.feature');
+            features.forEach((feature, index) => {
+                feature.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
